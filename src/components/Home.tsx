@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import MainAPI from "../api";
+import CatCardComponent from "./CatCardComponent";
 import SelectBreadComponent from "./SelectBreadComponent";
 import { CatsContainer, FilterContainer } from "./styles";
 
@@ -13,46 +14,51 @@ interface Cat {
 
 const Home = (props: Props) => {
     const [cats, setCats] = useState<Cat[]>([]);
-    const [pageNumber, setPageNumber] = useState(0);
     const [selectedBreed, setSelectedBreed] = useState<string | null>(null);
+    const [allImagesLoaded, setAllImagesLoaded] = useState(false);
+
+    const fetchCats = async () => {
+        const { data } = await MainAPI.getCatsByBreedId(selectedBreed || "");
+
+        const newCats = data.filter(
+            (cat: any) => !cats.some((c) => c.url === cat.url)
+        );
+
+        if (newCats.length === 0) {
+            setAllImagesLoaded(true);
+        } else {
+            setCats((prevCats) => [...prevCats, ...newCats]);
+        }
+    };
 
     const getCats = async () => {
         try {
             if (selectedBreed) {
-                const { data } = await MainAPI.getCatsByBreedId(
-                    selectedBreed,
-                    pageNumber
-                );
-                setPageNumber(pageNumber + 1);
-                setCats([...data]);
+                await fetchCats();
             } else {
                 setCats([]);
             }
         } catch (err) {
-            console.log(err);
+            alert("problem fetching");
         }
     };
+
     const loadMoreCats = async () => {
         try {
             if (selectedBreed) {
-                const { data } = await MainAPI.getCatsByBreedId(
-                    selectedBreed,
-                    pageNumber
-                );
-                setPageNumber(pageNumber + 1);
-                setCats((prev) => [...prev, ...data]);
+                await fetchCats();
             } else {
                 setCats([]);
             }
         } catch (err) {
-            console.log(err);
+            alert("problem fetching");
         }
     };
 
     useEffect(() => {
-        setPageNumber(0);
+        setCats([]);
+        setAllImagesLoaded(false);
         getCats();
-        console.log(cats);
     }, [selectedBreed]);
 
     return (
@@ -66,12 +72,14 @@ const Home = (props: Props) => {
             </FilterContainer>
             <CatsContainer>
                 {cats.map((cat) => (
-                    <h1>{cat.url}</h1>
+                    <CatCardComponent key={cat.id} id={cat.id} url={cat.url} />
                 ))}
             </CatsContainer>
-            <Button style={{ margin: 10 }} onClick={loadMoreCats}>
-                load more
-            </Button>
+            {selectedBreed && !allImagesLoaded && (
+                <Button style={{ margin: 10 }} onClick={loadMoreCats}>
+                    load more
+                </Button>
+            )}
         </>
     );
 };

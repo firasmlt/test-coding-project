@@ -1,9 +1,23 @@
 import React from "react";
+import { useNavigate } from "react-router";
+import { CardButton, CardContainer, CardImage } from "./styles";
 
-type Props = {};
+interface CatCardComponentProps {
+    id: string;
+    url: string;
+}
 
-const CatCardComponent = (props: Props) => {
-    return <div>CatCardComponent</div>;
+const CatCardComponent: React.FC<CatCardComponentProps> = ({ id, url }) => {
+    const navigate = useNavigate();
+
+    return (
+        <CardContainer>
+            <CardImage src={url} alt="Square Card" />
+            <CardButton onClick={() => navigate(`/details/${id}`)}>
+                View Details
+            </CardButton>
+        </CardContainer>
+    );
 };
 
 export default CatCardComponent;
