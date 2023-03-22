@@ -1,46 +1,47 @@
-# Getting Started with Create React App
+# Documentation for Cat Image App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introduction:
 
-## Available Scripts
+This document serves as a guide to understand and use the Cat Image App. The application is a web app that allows the user to browse through images of cats from different breeds. The app uses thecatapi.com API to fetch the images and other details about cats. The app is built using ReactJS, Typescript, React-router-dom, React-bootstrap, and Context API.
 
-In the project directory, you can run:
+## Installation:
 
-### `npm start`
+To run the application on your local machine, follow the below steps:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Clone the repository to your local machine: `git clone https://github.com/firasmlt/test-coding-project`
+2. Install the dependencies : `npm install`.
+3. Start the application : `npm start`.
+4. The app will run on `localhost:3000`.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Usage:
 
-### `npm test`
+The Cat Image App has two pages: Home Page and Single Cat Page.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Home Page:
 
-### `npm run build`
+On the Home Page, the user can select a breed from the dropdown menu to see images of cats from that breed.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Select a breed from the dropdown menu.
+2. The app will fetch images of cats from the API listed under the corresponding breed.
+3. Click on the "Load more" button to display more images that haven't been loaded yet.
+4. Once the images already reach the end of the list, the "Load more" button will disappear.
+5. To clear the previous images of cats and display a new list of images, select a different breed from the dropdown menu.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Single Cat Page:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+On the Single Cat Page, the user can see more details about a particular cat image, such as the breed name, origin, temperament, and description.
 
-### `npm run eject`
+Click on the "View details" button under each image.
+The app will redirect you to the Single Cat Page, where you can see the details about the cat image.
+To go back to the Home Page with the current breed already selected, click on the "Back" button at the top of the Single Cat Page.
+The Home Page will immediately load images of cats under the previously selected breed.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## API Exception:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+If there is an error while fetching the data from the API, the app will display an alert banner message
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Tech Stack
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+-   ReactJS + TypeScript
+-   React-router-dom
+-   React-bootstrap
