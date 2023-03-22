@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import MainAPI from "../api";
-import { CardImage } from "./styles";
+import { CardContainer, CardImage } from "./styles";
+import Button from "react-bootstrap/Button";
 
 type Props = {};
 
 const CardDetails = (props: Props) => {
+    const navigate = useNavigate();
     const [catInfo, setCatInfo] = useState({
         url: "",
         breed: "",
@@ -34,10 +36,22 @@ const CardDetails = (props: Props) => {
 
     return (
         <>
-            <CardImage src={catInfo.url} alt="loading..." />
-            <p>breed: {catInfo.breed}</p>
-            <p>name: {catInfo.name}</p>
-            <p>origin: {catInfo.origin}</p>
+            <Button
+                style={{ margin: 10 }}
+                onClick={() => {
+                    navigate("/");
+                }}
+            >
+                Back
+            </Button>
+            <br></br>
+            <CardContainer>
+                <CardImage src={catInfo.url} alt="loading..." />
+                <br></br>
+                <p>breed: {catInfo.breed}</p>
+                <p>name: {catInfo.name}</p>
+                <p>origin: {catInfo.origin}</p>
+            </CardContainer>
         </>
     );
 };

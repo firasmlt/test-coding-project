@@ -16,6 +16,7 @@ function SelectBreadComponent({ setSelectedBreed, selectedBreed }: Props) {
 
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedBreed(event.target.value);
+        localStorage.setItem("selectedBreed", event.target.value);
     };
 
     const getBreeds = async () => {
@@ -29,6 +30,9 @@ function SelectBreadComponent({ setSelectedBreed, selectedBreed }: Props) {
     };
     useEffect(() => {
         getBreeds();
+        if (localStorage.getItem("selectedBreed")) {
+            setSelectedBreed(localStorage.getItem("selectedBreed"));
+        }
     }, []);
     return (
         // <Dropdown>
